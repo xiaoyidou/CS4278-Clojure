@@ -100,3 +100,37 @@ given after each run.
 1.	"Online shopping. Sometimes it is hard to find the appropriate product and a “decision making assistance” app would be very helpful in searching for the best product."
 2.	"Deciding when it's worth it to go to class"
 3.	"What meals to prepare on your own"
+
+# Requirements
+
+1.	The application must have an interface that stores user preferences in the form of
+strings and maintain an internal database of users and their preferences.
+2.	Strings must follow a standard format associated with an action and a descriptor.
+For example, "less_than _descriptor_" will filter for restaurants that have an average price
+less than _descriptor_. "no _descriptor_" will filter for restaurants that are not associated
+with _descriptor_.
+3.	The application must contain a database of restaurants and their attributes, which will
+either be collected through web scraping or through accessing an API that stores such
+information (e.g. Yelp).
+4.	The application must be able to handle input from multiple people in the same group.
+Because people often times order with friends, it would be nice if multiple people could
+send input to the application to parallelize the task. However, their input must only affect
+the recommendation for that group.
+
+# Development Approach
+
+1.	The application will use the existing state-mgr framework already implemented in our
+assignments to map users to their preferences.
+2.	The application will route commands to their functions in a similar way to the experts
+register and query demo already implemented in our assignments.
+3.	User preferences and the restaurant database will be kept as separate state-mgr objects.
+They will each have their own set of protocols for adding users, adding preferences, and
+creating groups. The restaurant database will have its own set of protocols for adding 
+restaurants, looking up restaurants, and querying for other data.
+4.	Parsers must be created to make sure that the command exists and that the associated
+_descriptor_ is a valid argument for the command.
+5.	A nice visualization of the list of candidate restaurants at any point in time must
+be made in order to display results back to the users.
+6.	Getting data from the source will prove to be a big obstacle in this project. Currently,
+Yelp does not support a Clojure API, but an open source one is available (though it looks) 
+like it has been dead since 2016. Hopefully it is usable.
